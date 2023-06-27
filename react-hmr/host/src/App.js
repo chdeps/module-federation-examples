@@ -1,7 +1,8 @@
 import React, { Suspense } from 'libs/react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'libs/react-router-dom';
 
-import Heading from 'remote1/Heading';
+import Heading1 from 'remote1/Heading1';
+import Heading2 from 'remote2/Heading2';
 
 const Button = React.lazy(() => import('remote1/Button'));
 
@@ -18,7 +19,7 @@ const App = () => {
           }}
         >
           <h1>HOST</h1>
-          HOST ONLY SUPPORTS LIVE RELOAD. GO TO http://localhost:3001 to try out HMR
+          HOST ONL SUPPORTS LIVE RELOAD. GO TO http://localhost:3001 to try out HMR
         </div>
         <nav>
           <ul>
@@ -39,7 +40,8 @@ const App = () => {
               <Button />
             </Route>
             <Route path="/heading">
-              <Heading />
+              <Heading1 />
+              <Heading2 />
             </Route>
           </Switch>
         </Suspense>

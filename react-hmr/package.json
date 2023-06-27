@@ -4,6 +4,7 @@
   "workspaces": [
     "./libs",
     "./remote1",
+    "./remote2",
     "./host"
   ],
   "version": "1.0.0",
@@ -13,7 +14,7 @@
   "author": "burhanuday",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"cd libs; yarn start\" \"cd remote1; yarn start\" \"cd host; yarn start\"",
+    "start": "concurrently \"cd libs; yarn start\" \"cd remote2; yarn start\" \"cd remote1; yarn start\" \"cd host; yarn start\"",
     "e2e:ci": "yarn start & wait-on http-get://localhost:3000/ && npx cypress run --config-file ../cypress/config/cypress.config.ts --config '{\"supportFile\": \"../cypress/support/e2e.ts\"}' --spec \"./e2e/runAll*.cy.ts\" --browser=chrome"
   },
   "devDependencies": {

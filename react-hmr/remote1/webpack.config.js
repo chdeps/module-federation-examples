@@ -13,6 +13,11 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    },
     static: path.join(__dirname, 'dist'),
     port: 3001,
     liveReload: false,
@@ -20,6 +25,7 @@ module.exports = {
   output: {
     publicPath: 'auto',
     clean: true,
+    uniqueName: 'remote1'
   },
   module: {
     rules: [
@@ -40,10 +46,11 @@ module.exports = {
       filename: 'remoteEntry.js',
       exposes: {
         './Button': './src/Button',
-        './Heading': './src/Heading',
+        './Heading1': './src/Heading1',
       },
       remotes: {
         libs: 'libs@[libsUrl]/remoteEntry.js',
+        remote2: 'remote2@[remote2Url]/remoteEntry.js',
       },
     }),
     new ExternalTemplateRemotesPlugin(),

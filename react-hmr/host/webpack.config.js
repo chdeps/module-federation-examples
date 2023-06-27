@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const ExternalTemplateRemotesPlugin = require('external-remotes-plugin');
 const path = require('path');
-const LiveReloadPlugin = require('webpack-livereload-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
   entry: './src/index',
@@ -12,12 +12,13 @@ module.exports = {
     minimize: false,
   },
   devServer: {
-    hot: false,
+    hot: true,
     static: path.join(__dirname, 'dist'),
     port: 3000,
     historyApiFallback: {
       index: 'index.html',
     },
+    liveReload: false
   },
   output: {
     publicPath: 'auto',
@@ -31,6 +32,7 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           presets: ['@babel/preset-react'],
+          plugins: [require.resolve('react-refresh/babel')],
         },
       },
     ],
@@ -40,6 +42,7 @@ module.exports = {
       name: 'host',
       remotes: {
         remote1: 'remote1@[remote1Url]/remoteEntry.js',
+        remote2: 'remote2@[remote2Url]/remoteEntry.js',
         libs: 'libs@[libsUrl]/remoteEntry.js',
       },
     }),
@@ -47,8 +50,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-    new LiveReloadPlugin({
-      port: 35729,
+    new ReactRefreshWebpackPlugin({
+      exclude: [/node_modules/, /bootstrap\.js$/],
     }),
   ],
 };
